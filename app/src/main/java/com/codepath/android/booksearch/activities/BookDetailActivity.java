@@ -2,17 +2,25 @@ package com.codepath.android.booksearch.activities;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.android.booksearch.R;
+import com.codepath.android.booksearch.models.Book;
+
+import org.parceler.Parcels;
 
 public class BookDetailActivity extends AppCompatActivity {
     private ImageView ivBookCover;
     private TextView tvTitle;
     private TextView tvAuthor;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +33,24 @@ public class BookDetailActivity extends AppCompatActivity {
         tvAuthor = (TextView) findViewById(R.id.tvAuthor);
 
         // Extract book object from intent extras
+        Book book = (Book) Parcels.unwrap(getIntent().getParcelableExtra(BookListActivity.BOOK_KEY));
+
+        Glide.with(this)
+                .load(book.getCoverUrl())
+                .apply(new RequestOptions()
+                .placeholder(R.drawable.ic_nocover))
+                .into(ivBookCover);
+        tvTitle.setText(book.getTitle());
+        tvAuthor.setText(book.getAuthor());
 
         // Checkpoint #5
         // Reuse the Toolbar previously used in the detailed activity by referring to this guide
         // Follow using a Toolbar guide to set the Toolbar as the ActionBar.
         // Change activity title to reflect the book title by referring to the Configuring The ActionBar guide.
         // (Bonus) Get additional book information like publisher and publish_year from the Books API and display in details view.
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(book.getTitle());
     }
 
 
