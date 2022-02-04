@@ -136,10 +136,6 @@ public class BookListActivity extends AppCompatActivity {
         // Refer to http://guides.codepath.org/android/Extended-ActionBar-Guide#adding-searchview-to-actionbar guide for more details
         MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
-        int searchEditId = androidx.appcompat.R.id.search_src_text;
-        EditText et = (EditText) searchView.findViewById(searchEditId);
-        et.setTextColor(Color.WHITE);
-        et.setHintTextColor(Color.WHITE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -169,10 +165,10 @@ public class BookListActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
