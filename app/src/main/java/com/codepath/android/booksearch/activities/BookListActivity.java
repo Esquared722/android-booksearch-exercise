@@ -38,6 +38,7 @@ public class BookListActivity extends AppCompatActivity {
     private BookAdapter bookAdapter;
     private BookClient client;
     private ArrayList<Book> abooks;
+    private MenuItem miActionProgressItem;
     public static final String BOOK_KEY = "book";
 
     @Override
@@ -98,6 +99,7 @@ public class BookListActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON response) {
                 try {
+                    hideProgressBar();
                     JSONArray docs;
                     if (response != null) {
                         // Get the docs json array
@@ -111,6 +113,7 @@ public class BookListActivity extends AppCompatActivity {
                             abooks.add(book); // add book through the adapter
                         }
                         bookAdapter.notifyDataSetChanged();
+
                     }
                 } catch (JSONException e) {
                     // Invalid JSON format, show appropriate error.
@@ -127,10 +130,19 @@ public class BookListActivity extends AppCompatActivity {
         });
     }
 
+    public void showProgressBar() {
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        miActionProgressItem.setVisible(false);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_book_list, menu);
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
         // Checkpoint #4
         // Add SearchView to Toolbar
         // Refer to http://guides.codepath.org/android/Extended-ActionBar-Guide#adding-searchview-to-actionbar guide for more details
@@ -139,10 +151,9 @@ public class BookListActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                showProgressBar();
                 fetchBooks(query);
-
                 searchView.clearFocus();
-
                 return true;
             }
 
@@ -155,6 +166,7 @@ public class BookListActivity extends AppCompatActivity {
 
         // Checkpoint #7 Show Progress Bar
         // see https://guides.codepath.org/android/Handling-ProgressBars#progress-within-actionbar
+
         return true;
     }
 
