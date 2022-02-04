@@ -143,9 +143,6 @@ public class BookListActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_book_list, menu);
         miActionProgressItem = menu.findItem(R.id.miActionProgress);
-        // Checkpoint #4
-        // Add SearchView to Toolbar
-        // Refer to http://guides.codepath.org/android/Extended-ActionBar-Guide#adding-searchview-to-actionbar guide for more details
         MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -162,11 +159,6 @@ public class BookListActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-        // Checkpoint #7 Show Progress Bar
-        // see https://guides.codepath.org/android/Handling-ProgressBars#progress-within-actionbar
-
         return true;
     }
 

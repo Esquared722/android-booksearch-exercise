@@ -13,6 +13,7 @@ import androidx.appcompat.widget.ShareActionProvider;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.view.Menu;
@@ -75,12 +76,6 @@ public class BookDetailActivity extends AppCompatActivity {
                 .into(ivBookCover);
         tvTitle.setText(book.getTitle());
         tvAuthor.setText(book.getAuthor());
-
-        // Checkpoint #5
-        // Reuse the Toolbar previously used in the detailed activity by referring to this guide
-        // Follow using a Toolbar guide to set the Toolbar as the ActionBar.
-        // Change activity title to reflect the book title by referring to the Configuring The ActionBar guide.
-        // (Bonus) Get additional book information like publisher and publish_year from the Books API and display in details view.
         toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(book.getTitle());
@@ -130,10 +125,6 @@ public class BookDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_book_detail, menu);
-        // Checkpoint #6
-        // Add Share Intent
-        // see http://guides.codepath.org/android/Sharing-Content-with-Intents#shareactionprovider
-        // (Bonus) Share book title and cover image using the same intent.
         MenuItem item = menu.findItem(R.id.menu_item_share);
         miShareAction = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         attachShareIntentAction();
